@@ -1,0 +1,18 @@
+<div id="main-container">
+    <app-inside-elevator [numberOfFloors]="numberOfFloors"></app-inside-elevator>
+    <div id="elevator-display-container">
+        <div id="elevator-display">
+            @for (item of floorMap.entries(); track $index) {
+                <span>{{ $index }}</span>
+            }
+        </div>
+        <div id="elevator-wrapper">
+            <div id="elevator">
+                <img src="/assets/elevator_frame.svg" alt='elevator frame' id='elevator-frame'/>
+                <img src="/assets/door_left.svg"alt='left door' class='door' id='left-door'/>
+                <img src="/assets/door_right.svg" alt='right door' class='door' id='right-door'/>
+            </div>
+        </div>
+    </div>
+    <app-people-container [numberOfFloors]="numberOfFloors"></app-people-container>
+</div>

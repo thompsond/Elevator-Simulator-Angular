@@ -1,0 +1,14 @@
+<div id="inside-elevator-wrapper">
+    <h2 class="description">Inside Elevator</h2>
+    <p class="description">Choose a passenger and a destination floor</p>
+    <div id="inside-elevator-container">
+        <div id="elevator-passenger-list">
+            <!-- People list -->
+        </div>
+        <div id="elevator-btn-container">
+            @for (i of floorsArray; track $index) {
+                <app-cart-button [floorNumber]="6 - $index"></app-cart-button>
+            }
+        </div>
+    </div>
+</div>

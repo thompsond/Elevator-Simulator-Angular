@@ -1,0 +1,24 @@
+<div id="people-container">
+    <div id="add-person-container">
+        <form id="add-person-form">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput [formControl]="personNameFormControl" type="text"/>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Floor</mat-label>
+                <mat-select [(value)]="personFloor">
+                    @for (floor of floorList; track $index) {
+                        <mat-option [value]="floor">{{floor}}</mat-option>
+                        }
+                </mat-select>
+            </mat-form-field>
+                <button mat-flat-button color="primary" class="submit-btn" (click)="onAddPerson()" type="submit">Add</button>
+        </form>
+    </div>
+    <div id="people-list">
+        @for (person of peopleList$ | async; track $index) {
+            <app-floor-person [person]="person"></app-floor-person>
+          }
+    </div>
+</div>

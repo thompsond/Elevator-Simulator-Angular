@@ -1,0 +1,40 @@
+.description {
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+#inside-elevator-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  #elevator-passenger-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      .elevator-passenger {
+      display: inline-block;
+      border: 2px solid var(--blue);
+      border-radius: 5px;
+      padding: 5px 10px;
+      color: var(--blue);
+      cursor: pointer;
+      &:hover,
+      &.selected {
+          color: #fff;
+          background-color: var(--blue);
+      }
+      .person-info {
+          color: inherit;
+          background-color: inherit;
+      }
+      }
+  }
+}
+
+#elevator-btn-container {
+  display: grid;
+  grid-template-columns: 50px 50px;
+  grid-auto-rows: 50px;
+  grid-auto-flow: dense;
+  gap: 1em;
+}
