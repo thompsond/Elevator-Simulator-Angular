@@ -1,18 +1,18 @@
 <div id="main-container">
-    <app-inside-elevator [numberOfFloors]="numberOfFloors"></app-inside-elevator>
+    <app-inside-elevator [numberOfFloors]="(numberOfFloors$ | async) ?? 6"></app-inside-elevator>
     <div id="elevator-display-container">
-        <div id="elevator-display">
-            @for (item of floorMap.entries(); track $index) {
-                <span>{{ $index }}</span>
+        <div id="elevator-floors">
+            @for (item of [].constructor(numberOfFloors$ | async); track $index) {
+                <app-floor [floor]="6 - $index"></app-floor>
             }
         </div>
         <div id="elevator-wrapper">
-            <div id="elevator">
+            <div id="elevator" (click)="animateDown()">
                 <img src="/assets/elevator_frame.svg" alt='elevator frame' id='elevator-frame'/>
                 <img src="/assets/door_left.svg"alt='left door' class='door' id='left-door'/>
                 <img src="/assets/door_right.svg" alt='right door' class='door' id='right-door'/>
             </div>
         </div>
     </div>
-    <app-people-container [numberOfFloors]="numberOfFloors"></app-people-container>
+    <app-people-container [numberOfFloors]="(numberOfFloors$ | async) ?? 6"></app-people-container>
 </div>

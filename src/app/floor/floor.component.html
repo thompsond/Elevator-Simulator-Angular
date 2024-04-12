@@ -1,0 +1,5 @@
+<div class="elevator-display-passenger-list">
+    @for (person of peopleOutsideElevator$ | async; track $index) {
+        <mat-icon class="elevator-display-passenger">boy</mat-icon>
+    }
+</div>

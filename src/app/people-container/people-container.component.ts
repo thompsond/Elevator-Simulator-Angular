@@ -4,10 +4,14 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { Person } from '../../models/Person';
 import { FloorPersonComponent } from '../floor-person/floor-person.component';
+import { Store } from '@ngrx/store';
+import { addPersonOnFloor } from '../../state/actions';
+import { selectAllPeopleOutsideElevatorMap } from '../../state/selectors';
 @Component({
   selector: 'app-people-container',
   standalone: true,
@@ -28,10 +32,16 @@ import { FloorPersonComponent } from '../floor-person/floor-person.component';
 export class PeopleContainerComponent {
   @Input({required: true}) numberOfFloors!: number;
 
-  peopleList$ = new BehaviorSubject<Person[]>([]);
+  peopleList$: Observable<Person[]>;
 
   personNameFormControl = new FormControl<string>('');
   personFloor = 1;
+
+  constructor (private readonly store: Store<{}>) {
+    this.peopleList$ = store.select(selectAllPeopleOutsideElevatorMap).pipe(
+      map(peopleMap => Array.from(peopleMap.values()).flat()),
+    );
+  }
 
   get floorList() {
     const floors: number[] = [];
@@ -44,8 +54,7 @@ export class PeopleContainerComponent {
   onAddPerson() {
     const personName = this.personNameFormControl.value?.trim() ?? '';
     if (personName.length === 0) return;
-    this.peopleList$.next(this.peopleList$.value.concat([{name: personName, floor: this.personFloor}]));
+    this.store.dispatch(addPersonOnFloor({name: personName, floor: this.personFloor}));
     this.personNameFormControl.reset();
-    this.personFloor = 1;
   }
 }

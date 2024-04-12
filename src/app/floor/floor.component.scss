@@ -1,0 +1,15 @@
+.elevator-display-passenger-list {
+    border-bottom: 10px solid black;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 73px;
+
+    .elevator-display-passenger {
+        font-size: 4.5em;
+        height: 1em;
+        width: 1em;
+    }
+    .elevator-display-passenger + .elevator-display-passenger {
+        margin-left: -40px;
+    }
+}
